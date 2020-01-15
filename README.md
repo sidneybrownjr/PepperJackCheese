@@ -6,7 +6,8 @@ Our page will be called Bihtter and some of the featured we plan to support are:
   1. posting
   2. following
   3. liking
-  ____________________________________________________________________________________________________________-
+ 
+ ____________________________________________________________________________________________________________-
   4. commenting
   5. account
   6. markdown text support
