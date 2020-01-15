@@ -20,3 +20,7 @@ Our page will be called Bihtter and some of the featured we plan to support are:
   12. Random user button
   13. Fake block button with automatic calling out
   14. ability to @ someone
+  
+  __________________________________________________________________________________________________________
+  
+  We are going to try to use the MERN stack to complete our project
