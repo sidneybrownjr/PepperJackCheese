@@ -14,4 +14,4 @@ Welcome to the webpage for Pepper Jack Cheese Now!
   
   __________________________________________________________________________________________________________
   
-  We are going to try to use the MERN stack to complete our project which uses the languages MongoDB, Express.js, AngularJS, and Node.js
+  We are going to try to use the MERN stack to complete our project which uses the languages MongoDB, React, AngularJS, and Node.js
