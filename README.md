@@ -24,3 +24,12 @@ Our page will be called Bihtter and some of the featured we plan to support are:
   __________________________________________________________________________________________________________
   
   We are going to try to use the MERN stack to complete our project
+  
+  
+  
+  
+  
+  
+  
+  This is a project we are calling Bihtter! It is going to be a website that allows the user to complain and rant all they want! We will have core feautres such as posting, following, and liking as well as have some fun features like markdown support, personalized feeds, and a button to see random posts!
+  
