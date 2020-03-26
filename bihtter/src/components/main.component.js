@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Feed from "./feed.component"
+import Feed from "./feed.component";
 
 export default class Main extends Component{
   constructor(props){
@@ -12,10 +12,13 @@ export default class Main extends Component{
    
     this.state = {
       username: '',
+      token: '',
       description: '',
       date: 123
     }
   }  
+
+
     onChangePost(e){ 
     this.setState({
       description: e.target.value

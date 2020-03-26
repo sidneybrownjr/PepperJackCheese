@@ -38,7 +38,7 @@ export default class SignUp extends Component{
 
     onSubmit(e){
         e.preventDefault();
-
+        
         const user = {
             name: this.state.name,
             username: this.state.username,
@@ -48,8 +48,7 @@ export default class SignUp extends Component{
         console.log(user)
 
         axios.post('http://localhost:5000/users/add', user)
-            .then(res => console.log(res.data));
-        
+            
         axios.get('/user/12345')
             .catch(function (error) {
                 console.log(error.toJSON());
@@ -80,7 +79,7 @@ export default class SignUp extends Component{
                     </div>
                     <div className="form-group">
                         <label>Password </label>
-                        <input type="text"
+                        <input type="password"
                             className="form-control"
                             value= {this.state.password}
                             onChange={this.onChangePassword}
@@ -97,4 +96,5 @@ export default class SignUp extends Component{
     </div>
   );
     }
+
 }
