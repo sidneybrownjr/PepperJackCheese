@@ -149,5 +149,35 @@ router.route('/logout').get((req,res,next) => {
     )
 })
 
+router.route('/checkUsername').post((req, res) => {
+    const usr = req.body.username;
+
+
+    //const userLogin = new User({name, usr, password});
+
+    User.find({
+        username: usr
+    }, (err, users) => {
+        if (err) {
+            return res.send({
+                success: false,
+                message: 'server error'
+            });
+        }
+
+        if (users.length !== 0) {
+            return res.send({
+                success: false,
+                message: 'invalid'
+            });
+        }
+        else {
+            return res.send({
+                success: true,
+                message: 'Username Valid!'
+            })
+        }
+})
+})
 
 module.exports = router;

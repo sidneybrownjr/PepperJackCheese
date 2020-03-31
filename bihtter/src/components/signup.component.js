@@ -46,13 +46,24 @@ export default class SignUp extends Component{
         }
 
         console.log(user)
-
-        axios.post('http://localhost:5000/users/add', user)
+        axios.post('http://localhost:5000/users/checkUsername', user)
             .then(json => {
-                if (json.success){
-                    window.location = '/login';
+                if(json.success){
+                    axios.post('http://localhost:5000/users/add', user)
+                        .then(json => {
+                            if (json.success){
+                                window.location = '/login';
+                            }
+                        });
+                    axios.get('/users/12345')
+                        .catch(function (error) {
+                            console.log(error.toJSON());
+                        });
                 }
-            });
+                else{
+                    return <div><p>Error: invalid username</p></div>
+                }
+            })
         axios.get('/users/12345')
             .catch(function (error) {
                 console.log(error.toJSON());
