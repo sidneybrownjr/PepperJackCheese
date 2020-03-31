@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import { setInStorage } from "../storage";
+
 
 export default class Login extends Component{
     constructor(props){
@@ -39,8 +41,13 @@ export default class Login extends Component{
 
         console.log(user)
 
-        axios.post('http://localhost:5000/users/checkPassword', user)
-            .then(window.location = '/main');
+        axios.post('/users/checkPassword', user)
+            .then(json => {
+                if (json.success){
+                    setInStorage('bhitter' , { token: json.token })
+                window.location('/login')
+                }
+            });
         
         axios.get('/user/12345')
             .catch(function (error) {

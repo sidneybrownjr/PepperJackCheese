@@ -48,8 +48,12 @@ export default class SignUp extends Component{
         console.log(user)
 
         axios.post('http://localhost:5000/users/add', user)
-            
-        axios.get('/user/12345')
+            .then(json => {
+                if (json.success){
+                    window.location = '/login';
+                }
+            });
+        axios.get('/users/12345')
             .catch(function (error) {
                 console.log(error.toJSON());
             });

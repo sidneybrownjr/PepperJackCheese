@@ -120,4 +120,34 @@ router.route('/verify').get((req,res,next) => {
     )
 })
 
+router.route('/logout').get((req,res,next) => {
+    
+    const { query } = req;
+    const { token } = query;
+
+    //?token = test
+
+    UserSession.findOneAndUpdate({
+        _id:token,
+        isDeleted:false
+    }, {
+        $set:{isDeleted:true}
+    }, null, (err, sessions) => {
+        if (err) {
+            return res.send({
+                success: false,
+                message: 'Error: Server Error'
+            });
+        }
+        else{
+            return res.send({
+                success: true,
+                message: 'good'
+            });
+        }
+    }
+    )
+})
+
+
 module.exports = router;
