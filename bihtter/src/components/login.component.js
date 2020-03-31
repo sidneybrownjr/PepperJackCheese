@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-//import axios from 'axios';
+import axios from 'axios';
+import { setInStorage } from "../storage";
+
 
 export default class Login extends Component{
     constructor(props){
@@ -11,7 +13,7 @@ export default class Login extends Component{
 
 
         this.state = {
-            user: '',
+            username: '',
             password: '',
             users: []
         }
@@ -31,16 +33,31 @@ export default class Login extends Component{
 
     onSubmit(e){
         e.preventDefault();
-
-        const exercise = {
+        
+        const user = {
             username: this.state.username,
             password: this.state.password
         }
 
-        console.log(exercise)
+        console.log(user)
 
-        window.location = '/';
+        axios.post('/users/checkPassword', user)
+            .then(json => {
+                if (json.success){
+                    setInStorage('bhitter' , { token: json.token })
+                window.location('/login')
+                }
+            });
+        
+        axios.get('/user/12345')
+            .catch(function (error) {
+                console.log(error.toJSON());
+            });
+
+
+        
     }
+    
     
     render(){
         return (
@@ -51,21 +68,21 @@ export default class Login extends Component{
                         <label>Username: </label>
                         <input type="text"
                             className="form-control"
-                            value= ''
+                            value= {this.state.username}
                             onChange={this.onChangeUsername}
                             />
                     </div>
                     <div className="form-group">
                         <label>Password </label>
-                        <input type="text"
+                        <input type="password"
                             className="form-control"
-                            value=''
+                            value= {this.state.password}
                             onChange={this.onChangePassword}
                             />
                     </div>
 
                     <div className="form-group">
-                        <input type="button" style={{background: "#8b0000", border:"white"}} value="login" className="btn btn-primary"/>
+                        <input type="submit" style={{background: "#8b0000", border:"white"}} value="login" className="btn btn-primary"/>
                     </div>
                 </form>
       
