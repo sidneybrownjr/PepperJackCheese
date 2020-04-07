@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Feed from "./feed.component";
+import { getFromStorage } from "../storage";
 
 export default class Main extends Component{
   constructor(props){
@@ -12,13 +13,22 @@ export default class Main extends Component{
    
     this.state = {
       username: '',
-      token: '',
       description: '',
       date: 123
     }
   }  
 
-
+    componentDidMount(){
+    // gets the session token from local storage
+    const token_id = getFromStorage("token");
+    console.log(token_id)
+    // put the user_id token from local storage
+    // don't works right it retrun  
+    const user_id = getFromStorage("user_id");
+    console.log(user_id)
+    }
+    
+  
     onChangePost(e){ 
     this.setState({
       description: e.target.value
@@ -43,6 +53,7 @@ export default class Main extends Component{
      axios.post('http://localhost:5000/tweets/post', post)
      .then(res => console.log(post));
       
+     window.location = '/main'
     
     }
         render(){
@@ -50,14 +61,14 @@ export default class Main extends Component{
           <div>
             <form  onSubmit={this.onSubmit}>
 
-              <div class="form-group">
-                <label class="form-control-label">User:</label>
-                <input type="text" name="user" class="form-control" onChange={this.onChangeUser}></input>
+              <div className="form-group">
+                <label className="form-control-label">User:</label>
+                <input type="text" name="user" className="form-control" onChange={this.onChangeUser}></input>
               </div>
                 
-              <div class="form-group">
-                <label class="form-control-label">Description:</label>
-                <textarea name="description" class="form-control" onChange={this.onChangePost}></textarea>
+              <div className="form-group">
+                <label className="form-control-label">Description:</label>
+                <textarea name="description" className="form-control" onChange={this.onChangePost}></textarea>
               </div>
   
               <div className="form-group">
@@ -73,4 +84,3 @@ export default class Main extends Component{
         )
     }
 }
-
