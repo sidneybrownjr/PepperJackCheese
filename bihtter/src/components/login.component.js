@@ -42,20 +42,17 @@ export default class Login extends Component{
         console.log(user)
 
         axios.post('/users/checkPassword', user)
-            .then(json => {
-                if (json.success){
-                    setInStorage('bhitter' , { token: json.token })
-                window.location('/login')
-                }
-            });
-        
-        axios.get('/user/12345')
-            .catch(function (error) {
-                console.log(error.toJSON());
-            });
-
-
-        
+            .then(res => {
+                    console.log(res.data) 
+                    // put the session token in to local storage
+                    setInStorage('token' ,  res.data.token )
+                    // put the user id token in to local storage
+                    setInStorage(' user_id' ,  res.data.user_id )
+                     window.location = '/main'
+                },(err) => {
+                    console.log(err);
+    
+            });        
     }
     
     
