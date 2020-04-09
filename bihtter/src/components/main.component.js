@@ -14,32 +14,30 @@ export default class Main extends Component{
     this.state = {
       username: '',
       description: '',
+      user_id: '',
       date: 123
     }
   }  
-
     componentDidMount(){
-    // gets the session token from local storage
-    const token_id = getFromStorage("token");
-    console.log(token_id)
-    // put the user_id token from local storage
-    // don't works right it retrun  
-    const user_id = getFromStorage("user_id");
-    console.log(user_id)
-    }
-    
-  
+      const id = getFromStorage("user_id");
+      console.log(id)
+      
+      const req = {
+        id: id
+        }
+
+      axios.post('/users/username',req ) 
+      .then(res => {
+        this.setState({
+          username: res.data.username
+        })
+    })
+    } 
     onChangePost(e){ 
     this.setState({
       description: e.target.value
       });
     }
-    onChangeUser(e){ 
-      this.setState({
-        username: e.target.value
-        });
-    }
-    
     onSubmit(e){ 
       e.preventDefault();
       const post = {
@@ -62,8 +60,7 @@ export default class Main extends Component{
             <form  onSubmit={this.onSubmit}>
 
               <div className="form-group">
-                <label className="form-control-label">User:</label>
-                <input type="text" name="user" className="form-control" onChange={this.onChangeUser}></input>
+              <label className="form-control-label">Use:  {this.state.username}</label>
               </div>
                 
               <div className="form-group">
