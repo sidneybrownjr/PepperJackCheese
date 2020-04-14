@@ -11,6 +11,10 @@ const tweetSchema = new Schema({
         type: String, 
         required: true 
     },
+    like: {
+        type: [String],
+        required: true,
+    },
     date: { 
         type: Date, 
         required: true
