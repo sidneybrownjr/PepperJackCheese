@@ -2,20 +2,17 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Feed from "./feed.component";
 import { getFromStorage } from "../storage";
-
 export default class Main extends Component{
   constructor(props){
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChangePost = this.onChangePost.bind(this);
-    this.onChangeUser = this.onChangeUser.bind(this);
-   
-   
+    this.onLogout = this.onLogout.bind(this);
     this.state = {
       username: '',
       description: '',
-      user_id: '',
-      date: 123
+      like:[],
+      date:0,
     }
   }  
     componentDidMount(){
@@ -43,7 +40,9 @@ export default class Main extends Component{
       const post = {
         username: this.state.username,
         description: this.state.description,
-        date: this.state.date
+        like: this.state.like,
+        date: this.state.date,
+        liked: this.state.liked
       }
 
      console.log(post);
@@ -54,13 +53,29 @@ export default class Main extends Component{
      window.location = '/main'
     
     }
+    onLogout(e){
+  const id = getFromStorage("user_id");
+      console.log(id)
+      
+      const req = {
+        id: id
+        }
+
+      axios.post('/users/logout', req) 
+      .then(res => {
+        window.location = '/'
+        console.log(res)
+         }).catch((err) =>{
+           console.log(err);
+       })
+  }
         render(){
           return(
           <div>
             <form  onSubmit={this.onSubmit}>
 
               <div className="form-group">
-              <label className="form-control-label">Use:  {this.state.username}</label>
+              <label className="form-control-label">Usename:  {this.state.username}</label>
               </div>
                 
               <div className="form-group">
@@ -77,7 +92,16 @@ export default class Main extends Component{
 
             <Feed/>
             
-          </div>
+            
+            
+            <div className="customContainer">
+            <button className="btn btn-primary" onClick={this.onLogout}>
+              Logout</button>
+            </div>
+          
+          
+          
+            </div>
         )
     }
 }
