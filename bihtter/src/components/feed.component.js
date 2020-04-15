@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './feed.css';
+
 export default class Feed extends Component{
     constructor(props){
         super(props);
-        
-    this.state = {tweets:[]};
-         
+        this.state = {tweets:[]};    
     }
 
     componentDidMount(){
@@ -33,7 +32,7 @@ export default class Feed extends Component{
         return(
             <div class ="soild">
                 <h5>Feed:</h5>
-                <div>{this.renderItems()}</div>;
+                <div>{this.renderItems()}</div>
             </div>
         )
     }

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-var passwordHash = require('password-hash');
-
+const passwordHash = require('password-hash');
 const Schema = mongoose.Schema;
 
 // Defines what details can be stored for a User
@@ -20,8 +19,13 @@ const userSchema = new Schema({
         type: String,
         required: true,
         minlength: 6
+    },
+    followers: {
+        type: [String]
+    },
+    following: {
+        type: [String]
     }
-    
 });
 
 userSchema.methods.generateHash = function(password){
@@ -33,6 +37,7 @@ userSchema.methods.generateHash = function(password){
 userSchema.methods.validPassword = function(password){
     return passwordHash.verify(password, this.password);
 };
+
 
 const User = mongoose.model('User', userSchema);
 

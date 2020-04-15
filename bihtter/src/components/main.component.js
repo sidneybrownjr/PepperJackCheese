@@ -77,9 +77,7 @@ export default class Main extends Component{
                 </input>
               </div>
             </form>
-
             <Feed/>
-            
           </div>
         )
     }

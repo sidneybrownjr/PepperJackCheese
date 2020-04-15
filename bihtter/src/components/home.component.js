@@ -34,7 +34,7 @@ export default class Home extends Component{
                 })
         }
         else{
-            window.location = '/login';
+            window.location = '/signup';
     }
     }
 

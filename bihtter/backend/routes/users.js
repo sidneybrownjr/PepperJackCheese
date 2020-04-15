@@ -5,10 +5,34 @@ let User = require('../models/user.model');
 // API call to display all current users in the database
 // currently doesn't work for some reaosn
 router.route('/').get((req, res) => {
-    User.find()
+    User.find({})
         .then(users => res.json(users))
         .catch(err => res.status(400).json('Error: ' + err));
 });
+
+router.route('/follow').post((req, res) => {
+    User.findByIdAndUpdate({_id: req.user.id}, 
+        {$addToSet: {following: req.body.userId}})
+        .then(user => {
+            User.findByIdAndUpdate({_id: req.body.userId}, 
+                {$addToSet: {followers: req.user.id}})
+                .then(user => res.json({userId: req.body.userId}))
+                .catch(err => console.log(err))
+        })
+        .catch(err => console.log(err))
+})
+
+router.route('/unfollow').post((req, res) => {
+    User.findByIdAndUpdate({_id: req.user.id}, 
+        {$pull: {following: req.body.userId}})
+        .then(user => {
+            User.findByIdAndUpdate({_id: req.body.userId}, 
+                {$pull: {followers: req.user.id}})
+                .then(user => res.json({userId: req.body.userId}))
+                .catch(err => console.log(err))
+        })
+        .catch(err => console.log(err))
+})
 
  // API call to add a user to the database
 router.route('/add').post((req, res) => {
@@ -16,11 +40,6 @@ router.route('/add').post((req, res) => {
     const name = req.body.name;
     const username = req.body.username;
     const password = req.body.password;
-    //this.generateHash(password)
-
-    /*console.log({name});
-    console.log({username});
-    console.log({password});*/
 
     // creates a model instance with the supplied credentials
     const newUser = new User({name, username, password});
