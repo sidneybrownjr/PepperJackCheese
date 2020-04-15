@@ -49,16 +49,12 @@ router.route('/add').post((req, res) => {
     newUser.save()
     .then(() => res.json('User added!'))
     .catch(err => res.status(400).json('Error: ' + err));
-});
+})
 
 // API call to return a user information to the client
 router.route('/checkPassword').post((req, res) => {
     const usr = req.body.username;
     const password = req.body.password;
-
-
-    //const userLogin = new User({name, usr, password});
-
     User.find({
         username: usr
     }, (err, users) => {
@@ -98,12 +94,35 @@ router.route('/checkPassword').post((req, res) => {
             return res.send({
                 success: true,
                 message: 'Valid sign in',
-                token: doc._id
+                token: doc._id,
+                user_id: user._id,
             });
         });
     }
     )
 
+})
+
+
+router.route('/username').post((req, res) => {
+    const id = req.body.id;
+
+
+    User.find({
+        _id: id
+    }, (err, users) => {
+         if (err) {
+            return res.send({
+                success: false,
+                message: "err: " + err
+                      });
+        }
+        const user = users[0];
+        return res.send({
+            message: true,
+            username: user.username
+        });
+    });
 })
 
 router.route('/verify').get((req,res,next) => {
@@ -168,35 +187,5 @@ router.route('/logout').get((req,res,next) => {
     )
 })
 
-router.route('/checkUsername').post((req, res) => {
-    const usr = req.body.username;
-
-
-    //const userLogin = new User({name, usr, password});
-
-    User.find({
-        username: usr
-    }, (err, users) => {
-        if (err) {
-            return res.send({
-                success: false,
-                message: 'server error'
-            });
-        }
-
-        if (users.length !== 0) {
-            return res.send({
-                success: false,
-                message: 'invalid'
-            });
-        }
-        else {
-            return res.send({
-                success: true,
-                message: 'Username Valid!'
-            })
-        }
-})
-})
 
 module.exports = router;
