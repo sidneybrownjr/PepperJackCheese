@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { getFromStorage } from "../storage";
+//import { getFromStorage } from "../storage";
 export default class Like extends Component{
   constructor(props) {
     super(props);    
